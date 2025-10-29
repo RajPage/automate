@@ -84,7 +84,7 @@ class PriceFetcher:
     def fetch_current_price_in_inr():
         try:
             # TODO: Replace with another API with better reliability if needed
-            response = requests.get(PriceFetcher.Gold_Silver_API_URL, timeout=10)
+            response = requests.get(PriceFetcher.Gold_Silver_API_URL, timeout=10, headers=PriceFetcher.get_headers())
             if response.status_code != 200:
                 print(f"Error fetching price data: Status code {response.status_code}")
                 return None
@@ -110,6 +110,15 @@ class PriceFetcher:
     def convert_oz_to_grams(price_per_oz, grams=10):
         grams_per_oz = 31.1035
         return (price_per_oz / grams_per_oz) * grams
+    
+    @staticmethod
+    def get_headers():
+        # Mimic a browser request to avoid potential blocking by the server
+        return {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'application/json',
+            'Referer': 'https://goldprice.org/'
+        }
     
 if __name__ == "__main__":
     fetcher = PriceFetcher()
