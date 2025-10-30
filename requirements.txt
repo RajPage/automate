@@ -6,7 +6,7 @@ dill==0.4.0
 idna==3.11
 isort>=6.1.0
 mccabe==0.7.0
-platformdirs==4.5.0
+platformdirs>=4.4.0
 pylint==4.0.2
 requests==2.32.5
 tomlkit==0.13.3
