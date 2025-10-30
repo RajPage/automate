@@ -18,7 +18,7 @@ class PriceHistory:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
 
-        with open("schema.sql", "r") as f:
+        with open("schema.sql", "r", encoding="utf-8") as f:
             sql_script = f.read()
         cursor.executescript(sql_script)
 
@@ -30,7 +30,7 @@ class PriceHistory:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
 
-        with open("insert_price.sql", "r") as f:
+        with open("insert_price.sql", "r", encoding="utf-8") as f:
             sql_insert = f.read()
         cursor.execute(sql_insert, (date, metal, price))
 
@@ -42,11 +42,11 @@ class PriceHistory:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         if days is not None:
-            with open("select_recent.sql", "r") as f:
+            with open("select_recent.sql", "r", encoding="utf-8") as f:
                 sql_select_recent = f.read()
             cursor.execute(sql_select_recent, (metal, days))
         else:
-            with open("select_all.sql", "r") as f:
+            with open("select_all.sql", "r", encoding="utf-8") as f:
                 sql_select = f.read()
             cursor.execute(sql_select, (metal,))
         prices = [row[0] for row in cursor.fetchall()]  # Flatten list of tuples
@@ -74,7 +74,7 @@ class PriceHistory:
             "count": len(prices),
         }
 
-    # TODO: Clean up old data method
+    # TODO: Clean up old data method # pylint: disable=fixme
 
 
 class PriceFetcher:
@@ -89,7 +89,7 @@ class PriceFetcher:
     def fetch_current_price_in_inr():
         """Fetch current gold and silver prices in INR per 10 grams."""
         try:
-            # TODO: Replace with another API with better reliability if needed
+            # TODO: Replace with another API with better reliability if needed # pylint: disable=fixme
             response = requests.get(
                 PriceFetcher.Gold_Silver_API_URL,
                 timeout=10,
